@@ -41,4 +41,4 @@ classDiagram
     CreatureRepository --> Creature : Crea, elimina, modifica criaturas
     AuthService --> CreatureController : Controla el acceso
 
-    He intentado hacer un diagrama de clases en el README como has puesto en el ejercicio. El proyecto no está completado porque no doy a basto con los examenes que hemos tenido estas dos semanas ademas de los proyectos
+He intentado hacer un diagrama de clases en el README como has puesto en el ejercicio. El proyecto no está completado porque no doy a basto con los examenes que hemos tenido estas dos semanas ademas de los proyectos
