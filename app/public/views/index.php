@@ -1,9 +1,9 @@
 <?php
 //Es necesario que importemos los ficheros creados con anterioridad porque los vamos a utilizar desde este fichero.
-require_once(dirname(__FILE__) . '/../../controllers/offer/OfferController.php');
+require_once(dirname(__FILE__) . '/../../controllers/creature/CreatureController.php');
 //Recupero de la BD todos los empleos a través del controlador
-$offerController = new OfferController;
-$offers = $offerController->readAction();
+$CreatureController = new CreatureController;
+$creatures = $CreatureController->readAction();
 // Gestión de sesión
 require_once(dirname(__FILE__) . '/../../../utils/SessionUtils.php');
 
@@ -34,23 +34,10 @@ if (isset($_GET["error"]) && $_GET["error"] == "ErrorLogin"){
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a  class="nav-link " href="user/signup.php">Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a  class="nav-link " href="contact.php">Contactar</a>
-                    </li>
                     <li class="nav-item ">
                         <?php if (isset($error)) {echo $error;} ?>
                     </li>
                 </ul>
-                    <form class="form-inline" role="form" method="POST" action="../../controllers/user/userController.php">
-                            <input type="text" name="user" class="form-control" id="email"
-                                   placeholder="yoxti@ejemplo.com" required autofocus>
-                            <input type="password" name="pass" class="form-control" id="password"
-                                   placeholder="Contraseña" required>
-                        <button type="submit" class="btn btn-success" value="Login" id="login" name="btnsubmit"> Acceder</button>
-                    </form> 
             </div>  
         </nav>
         <!-- Page Content -->
@@ -62,10 +49,10 @@ if (isset($_GET["error"]) && $_GET["error"] == "ErrorLogin"){
                 </div>
                 <!-- /.col-md-8 -->
                 <div class="col-md-4">
-                    <h1>Artean, bolsa de empleo de Cuatrovientos</h1>
-                    <p class="lead">Desde Cuatrovientos queremos dar la bienvenida a todo el alumnado y empresas que por primera vez se acercan al instituto y a aquellos que continúan con sus programas formativos. </p>
+                    <h1>RolePlay</h1>
+                    <p class="lead">Criaturas</p>
                         <p class="lead">
-                            <a href="user/signup.php" class="btn btn-lg btn-success-outline">Alta usuario</a>
+                            <a href="creature/create.php" class="btn btn-lg btn-success-outline">Crear Criatura</a>
                         </p>
                 </div>
             </div>
@@ -74,15 +61,15 @@ if (isset($_GET["error"]) && $_GET["error"] == "ErrorLogin"){
         <hr>
         <!-- Content Row -->
         <?php
-        for ($i = 0; $i < sizeof($offers); $i+=3) {
+        for ($i = 0; $i < sizeof($creatures); $i+=3) {
             ?>
             <!--  <div class="card-group">   -->
             <div class="row"> 
                 <?php
                 for ($j = $i; $j < ($i + 3); $j++) {
-                    if (isset($offers[$j])) {
+                    if (isset($creatures[$j])) {
 
-                        echo $offers[$j]->publicOffer2HTML();
+                        echo $creatures[$j]->publicCreature2HTML();
                     }
                 }
                 ?>

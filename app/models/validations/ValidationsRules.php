@@ -11,6 +11,15 @@ class ValidationsRules {
         $data = htmlspecialchars($data);
         return $data;
     }
+    
+    public static function testUserType($data) {
+        if ($data == "Candidate" || $data == "Enterprise"){
+            return $data;
+        }
+        else{
+            return "Candidate";
+        }
+    }
 
 }
     

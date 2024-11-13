@@ -36,11 +36,11 @@ require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
         <div class="container">
             <div class="row m-y-2">
                 <div class="col-lg-8 push-lg-4">
-                    <form class="form-horizontal" role="form" method="POST" action="../../../controllers/user/insertController.php">
+                    <form class="form-horizontal" role="form" method="POST" action="../../../controllers/creature/CreatureController.php">
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <h2>Por favor registrate</h2>
+                                <h2>Añade criatura</h2>
                                 <hr>
                             </div>
                         </div>
@@ -48,11 +48,11 @@ require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
                                 <div class="form-group has-danger">
-                                    <label class="sr-only" for="email">Email:</label>
+                                    <label class="sr-only" for="name">Nombre:</label>
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                         <div class="input-group-addon"></div>
-                                        <input type="text" name="user" class="form-control" id="email"
-                                               placeholder="vivayo@correo.com" required autofocus>
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               placeholder="Nombre" required autofocus>
                                     </div>
                                 </div>
                             </div>
@@ -72,11 +72,11 @@ require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="sr-only" for="password">Contraseña:</label>
+                                    <label class="sr-only" for="description">Descripción:</label>
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                         <div class="input-group-addon" ></div>
-                                        <input type="password" name="password" class="form-control" id="password"
-                                               placeholder="Password" required>
+                                        <input type="password" name="description" class="form-control" id="description"
+                                               placeholder="Descripcion" required>
                                     </div>
                                 </div>
                             </div>
@@ -95,11 +95,80 @@ require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="sr-only" for="lname">Apellidos:</label>
+                                    <label class="sr-only" for="lname">Avatar:</label>
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                         <div class="input-group-addon" ></div>
-                                        <input type="text" name="lname" class="form-control" id="lname"
-                                               placeholder="Nombre Apellidos" required>
+                                        <input type="text" name="avatar" class="form-control" id="avatar"
+                                               placeholder=".jpeg..." required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-control-feedback">
+                                    <span class="text-danger align-middle"><?php
+                                        if (isset($error)) {
+                                            echo $error;
+                                        }
+                                        ?> 
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="sr-only" for="attack">Potencia de ataque:</label>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <div class="input-group-addon" ></div>
+                                        <input type="text" name="attack" class="form-control" id="attack"
+                                               placeholder="PUUUUM" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-control-feedback">
+                                    <span class="text-danger align-middle"><?php
+                                        if (isset($error)) {
+                                            echo $error;
+                                        }
+                                        ?> 
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="sr-only" for="lname">Vida:</label>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <div class="input-group-addon" ></div>
+                                        <input type="text" name="life" class="form-control" id="life"
+                                               placeholder="Vida" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-control-feedback">
+                                    <span class="text-danger align-middle"><?php
+                                        if (isset($error)) {
+                                            echo $error;
+                                        }
+                                        ?> 
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="sr-only" for="attack">Arma:</label>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <div class="input-group-addon" ></div>
+                                        <input type="text" name="weapon" class="form-control" id="weapon"
+                                               placeholder="Ay " required>
                                     </div>
                                 </div>
                             </div>
@@ -117,6 +186,7 @@ require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
                         <div class="row" >
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
+                                <input type="hidden" name="type" value="create">
                                 <button type="submit" class="btn btn-success" value="Register" id="register" name="btnsubmit">Acceder</button>
                             </div>
                         </div>

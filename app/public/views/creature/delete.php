@@ -1,4 +1,5 @@
 <?php
+
 // Gestión de sesión
 require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
 SessionUtils::destroySession();

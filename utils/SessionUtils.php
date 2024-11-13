@@ -32,8 +32,10 @@ class SessionUtils {
         session_destroy();
     }
 
-    static function setSession($user) {
+    static function setSession($user, $userType, $idUser) {
         $_SESSION['user'] = $user;
+        $_SESSION['user_type'] = $userType;
+        $_SESSION['id_user'] = $idUser;
         if (!isset($_SESSION['CREATED'])) {
             $_SESSION['CREATED'] = time();
         } else if (time() - $_SESSION['CREATED'] > 1800) {
@@ -58,6 +60,11 @@ class SessionUtils {
         } else {
             return false;
         }
+    }
+    
+    static function getIdUser() {
+        session_start();
+        return $_SESSION['id_user'];
     }
 
 }

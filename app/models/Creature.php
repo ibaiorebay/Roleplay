@@ -1,57 +1,117 @@
 <?php
 
+/**
+ * Class User
+ * 
+ * Encapsulates a user.
+ *
+ * @version    0.1
+ * 
+ * @author     cuatrovientos
+ */
 class Creature {
-    private $id;
-    private $name;
-    private $image_url;
-    private $description;
 
-    public function __construct($id = null, $name = "", $image_url = "", $description = "") {
-        $this->id = $id;
+    private $creatureid;
+    private $name;
+    private $description;
+    private $avatar;
+    private $attack;
+    private $life;
+    private $weapon;
+
+    //Getters and setters of User Class.
+
+    public function getAttack() {
+        return $this->attack;
+    }
+
+    public function setAttack($attack) {
+        $this->attack = $attack;
+    }
+
+    public function getLife() {
+        return $this->life;
+    }
+
+    public function setLife($life) {
+        $this->life = $life;
+    }
+
+    public function getWeapon() {
+        return $this->weapon;
+    }
+
+    public function setWeapon($weapon) {
+        $this->weapon = $weapon;
+    }
+
+    public function getcreatureid() {
+        return $this->creatureid;
+    }
+
+    public function setcreatureid($id) {
+        $this->creatureid = $id;
+    }
+
+    public function getname() {
+        return $this->name;
+    }
+
+    public function setname($name) {
         $this->name = $name;
-        $this->image_url = $image_url;
+    }
+
+    public function getdescription() {
+        return $this->description;
+    }
+
+    public function setdescription($description) {
         $this->description = $description;
     }
 
-    // Métodos para obtener y establecer las propiedades
-    public function getId() { return $this->id; }
-    public function getName() { return $this->name; }
-    public function getImageUrl() { return $this->image_url; }
-    public function getDescription() { return $this->description; }
-
-    public function setName($name) { $this->name = $name; }
-    public function setImageUrl($image_url) { $this->image_url = $image_url; }
-    public function setDescription($description) { $this->description = $description; }
-
-    // Método para guardar una criatura en la base de datos
-    public static function create($db, $creature) {
-        $stmt = $db->prepare("INSERT INTO creature (name, image_url, description) VALUES (?, ?, ?)");
-        $stmt->execute([$creature->getName(), $creature->getImageUrl(), $creature->getDescription()]);
-        return $db->lastInsertId();
+    public function getavatar() {
+        return $this->avatar;
     }
 
-    // Método para actualizar una criatura en la base de datos
-    public static function update($db, $creature) {
-        $stmt = $db->prepare("UPDATE creature SET name = ?, image_url = ?, description = ? WHERE id = ?");
-        return $stmt->execute([$creature->getName(), $creature->getImageUrl(), $creature->getDescription(), $creature->getId()]);
+    public function setavatar($avatar) {
+        $this->avatar = $avatar;
     }
 
-    // Método para obtener todas las criaturas
-    public static function getAll($db) {
-        $stmt = $db->query("SELECT * FROM creature");
-        return $stmt->fetchAll(PDO::FETCH_CLASS, "Creature");
+    function publicCreature2HTML() {
+    $result = '<div class="col-md-4">';
+    $result .= '<div class="card">';
+    $result .= '<div class="card-block">';
+    $result .= '<h2 class="card-title">' . $this->getname() . '</h2>';
+    $result .= '<p class="card-text description">' . $this->getdescription() . '</p>';
+    $result .= '</div>';
+    
+    // Mostrar el avatar si está disponible
+    if ($this->getavatar()) {
+        $result .= '<img src="' . $this->getavatar() . '" alt="Avatar" class="img-fluid" />';
     }
 
-    // Método para obtener una criatura por ID
-    public static function getById($db, $id) {
-        $stmt = $db->prepare("SELECT * FROM creature WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetchObject("Creature");
-    }
+    // Mostrar más información como ataque, vida y arma
+    $result .= '<div class="card-body">';
+    $result .= '<p>Attack: ' . $this->getAttack() . '</p>';
+    $result .= '<p>Life: ' . $this->getLife() . '</p>';
+    $result .= '<p>Weapon: ' . $this->getWeapon() . '</p>';
+    $result .= '</div>';
+    
+    // Añadir botones en el pie de la tarjeta
+    $result .= '<div class="card-footer text-center">';
+    $result .= '<div class="btn-group" role="group">';
+    $result .= '<a href="#" class="btn btn-primary">Descripción</a>';
+    $result .= '<a href="../public/views/creature/edit.php" class="btn btn-warning">Editar</a>';
+    $result .= '<a href="#" class="btn btn-danger">Eliminar</a>';
+    $result .= '</div>';
+    $result .= '</div>';
 
-    // Método para eliminar una criatura
-    public static function delete($db, $id) {
-        $stmt = $db->prepare("DELETE FROM creature WHERE id = ?");
-        return $stmt->execute([$id]);
-    }
+    $result .= '</div>'; // Cierre de la tarjeta
+    $result .= '</div>'; // Cierre de la columna
+
+    return $result;
 }
+
+}
+
+?>
