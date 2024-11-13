@@ -1,4 +1,4 @@
-classDiagram
+classDiagram\n
     class Creature {
         +int id
         +string name
