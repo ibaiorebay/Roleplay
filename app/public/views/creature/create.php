@@ -1,6 +1,36 @@
 <?php
 // Analizo la sesión
-require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
+require_once(dirname(__FILE__) . '../../../../../utils/SessionUtils.php');
+require_once('C:\xampp\htdocs\Roleplay\app\controllers\creature/CreatureController.php');
+
+// Creamos una instancia del controlador
+$creatureController = new CreatureController();
+$creature = null;
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $creature = $creatureController->getCreatureById($id);
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Procesamos el formulario y agregamos la nueva criatura
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $avatar = $_POST['avatar'];
+    $attackPower = $_POST['attackPower'];
+    $lifeLevel = $_POST['lifeLevel'];
+    $weapon = $_POST['weapon'];
+
+     if ($creature) {
+        // Si estamos editando, actualizamos la criatura
+        $creatureController->updateCreature($creature->getIdCreature(), $name, $description, $avatar, $attackPower, $lifeLevel, $weapon);
+    } else {
+        // Si no estamos editando, creamos una nueva criatura
+        $creatureController->createCreature($name, $description, $avatar, $attackPower, $lifeLevel, $weapon);
+    }
+
+    // Redirigimos a la página principal
+    header("Location: index.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +105,7 @@ require_once(dirname(__FILE__) . '/../../../../utils/SessionUtils.php');
                                     <label class="sr-only" for="description">Descripción:</label>
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                         <div class="input-group-addon" ></div>
-                                        <input type="password" name="description" class="form-control" id="description"
+                                        <input type="text" name="description" class="form-control" id="description"
                                                placeholder="Descripcion" required>
                                     </div>
                                 </div>

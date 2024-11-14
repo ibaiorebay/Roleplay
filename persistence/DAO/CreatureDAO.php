@@ -6,7 +6,7 @@ require_once(dirname(__FILE__) . '..\..\conf\PersistentManager.php');
 class CreatureDAO {
 
     //Se define una constante con el nombre de la tabla
-    const USER_TABLE = 'creature';
+    const CREATURE_TABLE = 'creature';
 
     //Conexión a BD
     private $conn = null;
@@ -17,7 +17,7 @@ class CreatureDAO {
     }
 
     public function selectAll() {
-        $query = "SELECT * FROM " . CreatureDAO::USER_TABLE;
+        $query = "SELECT * FROM " . CreatureDAO::CREATURE_TABLE;
         $result = mysqli_query($this->conn, $query);
         $creatures = array();
         while ($userBD = mysqli_fetch_array($result)) {
@@ -35,16 +35,16 @@ class CreatureDAO {
         return $creatures;
     }
 
-    public function insert($user) {
-        $query = "INSERT INTO " . UserDAO::USER_TABLE .
-                " (name, description, avatar, attackPower, lifeLevel, weapon) VALUES(?,?,?,?,?,?)";
+    public function insert($creature) {
+        $query = "INSERT INTO " . CreatureDAO::CREATURE_TABLE . " (name, description, avatar, attackPower, lifeLevel, weapon) VALUES(?,?,?,?,?,?)";
         $stmt = mysqli_prepare($this->conn, $query);
+
         $name = $creature->getName();
         $description = $creature->getDescription();
         $avatar = $creature->getAvatar();
         $attack = $creature->getAttack();
         $life = $creature->getLife();
-        $weapon = $creature->gtWeapon();
+        $weapon = $creature->getWeapon();
 
         mysqli_stmt_bind_param($stmt, 'sssiis', $name, $description, $avatar, $attack, $life, $weapon);
         return $stmt->execute();

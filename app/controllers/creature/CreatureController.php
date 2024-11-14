@@ -6,105 +6,52 @@ require_once(dirname(__FILE__) . '/../../../app/models/Creature.php');
 require_once(dirname(__FILE__) . '/../../../app/models/validations/ValidationsRules.php');
 require_once(dirname(__FILE__) . '/../../../utils/SessionUtils.php');
 
-$_creatureController = new CreatureController();
-
-// Enrutamiento de las acciones
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_POST["type"] == "submit") {
-        $_creatureController->createAction();
-    } else if ($_POST["type"] == "edit") {
-        $_creatureController->editAction();
-    } else if ($_POST["type"] == "apply") {
-        $_creatureController->applyAction(SessionUtils::getIdUser());
-    }
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
-    //Llamo que hace la edición contra BD
-    $_creatureController->deleteAction();
-}
+$persistentManager = PersistentManager::getInstance();
+$conn = $persistentManager->get_connection();
 
 class CreatureController {
-
-    /**
-     * Parameterless constractor.
-     */
+    private $creatureDAO;
+    
     public function __construct() {
+        $this->creatureDAO = new CreatureDAO();
+    }
+
+     public function listCreatures() {
+        return $creatures = $this->creatureDAO->selectAll();
         
     }
-
-    // Obtención de la lista completa de ofertas
-    function readAction() {
-        $creatureDAO = new CreatureDAO();
-        return $creatureDAO->selectAll();
-    }
-
-    // Función encargada de crear nuevas ofertas
-    function createAction() {
-        // Obtención de los valores del formulario y validación
-        $name = ValidationsRules::test_input($_POST["name"]);
-        $description = ValidationsRules::test_input($_POST["description"]);
-        $avatar = ValidationsRules::test_input($_POST["avatar"]);
-        $attack = ValidationsRules::test_input($_POST["attack"]);
-        $life = ValidationsRules::test_input($_POST["life"]);
-        $weapon = ValidationsRules::test_input($_POST["weapon"]);
-
+    public function createCreature($name, $description, $avatar, $attackPower, $lifeLevel, $weapon) {
+        // Creamos un objeto de tipo Creature
         $creature = new Creature();
-        $creature->setname($name);
-        $creature->setdescription($description);
-        $creature->setavatar($avatar);
-        $creature->setAttack($attack);
-        $creature->setLife($life);
-        $creature->setLife($life);
-
-        $creatureDAO = new CreatureDAO();
-        $creatureDAO->insert($creature);
-
-        header('Location: ../../public/views/index.php');
-    }
-    
-    function editAction() {   
-        $id = $_POST["id"];
-        $name = ValidationsRules::test_input($_POST["name"]);
-        $description = ValidationsRules::test_input($_POST["description"]);
-        $avatar = ValidationsRules::test_input($_POST["avatar"]);
-        $attack = ValidationsRules::test_input($_POST["attack"]);
-        $life = ValidationsRules::test_input($_POST["life"]);
-        $weapon = ValidationsRules::test_input($_POST["weapon"]);
-
-        $creature = new Creature();
-        $creature->setCreatureId($id);
         $creature->setName($name);
         $creature->setDescription($description);
         $creature->setAvatar($avatar);
-        $creature->setAttack($attack);
-        $creature->setLife($life);
+        $creature->setAttackPower($attackPower);
+        $creature->setLifeLevel($lifeLevel);
         $creature->setWeapon($weapon);
 
-        $creatureDAO = new CreatureDAO();
-        $creatureDAO->update($creature);
-
-        header('Location: ../../../index.php');
+        // Usamos el DAO para insertar la criatura en la base de datos
+        $this->creatureDAO->insertCreature($creature);
     }
-
-    function deleteAction() {
-        $id = $_GET["id"];
-
-        $creatureDAO = new CreatureDAO();
-        $creatureDAO->delete($id);
-
-        header('Location: ../../../index.php');
+    public function getCreatureById($id) {
+        return $creature = $this->creatureDAO->getCreatureById($id);
     }
+     public function updateCreature($id, $name, $description, $avatar, $attackPower, $lifeLevel, $weapon) {
+        $creature = new Creature();
+        $creature->setIdCreature($id);
+        $creature->setName($name);
+        $creature->setDescription($description);
+        $creature->setAvatar($avatar);
+        $creature->setAttackPower($attackPower);
+        $creature->setLifeLevel($lifeLevel);
+        $creature->setWeapon($weapon);
 
-    function getCreatures() {
-        // Recupero el ID de la Oferta
-        $idOffer = $_GET["idOffer"];
-
-        // Creo un objeto CreatureDAO
-        $creatureDAO = new CreatureDAO();
-
-        // Recupero las criaturas asociadas a la oferta
-        return $creatureDAO->selectCreaturesByOffer($idOffer);
+        // Actualizamos la criatura en la base de datos
+        $this->creatureDAO->updateCreature($creature);
+    }
+    
+    public function deleteCreature($id) {
+        return $this->creatureDAO->deleteCreature($id);
     }
 }
 

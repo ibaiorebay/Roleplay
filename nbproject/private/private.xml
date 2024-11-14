@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/Roleplay/index.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/persistence/conf/credentials.json</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/persistence/DAO/CreatureDAO.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/app/public/views/creature/edit.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/app/models/Creature.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/app/controllers/creature/CreatureController.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/app/public/views/creature/create.php</file>
             <file>file:/C:/xampp/htdocs/Roleplay/app/public/views/index.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/app/public/views/contact.php</file>
+            <file>file:/C:/xampp/htdocs/Roleplay/persistence/conf/PersistentManager.php</file>
         </group>
     </open-files>
 </project-private>

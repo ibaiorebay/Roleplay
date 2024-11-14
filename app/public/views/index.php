@@ -3,7 +3,7 @@
 require_once(dirname(__FILE__) . '/../../controllers/creature/CreatureController.php');
 //Recupero de la BD todos los empleos a través del controlador
 $CreatureController = new CreatureController;
-$creatures = $CreatureController->readAction();
+$creatures = $CreatureController->listCreatures();
 // Gestión de sesión
 require_once(dirname(__FILE__) . '/../../../utils/SessionUtils.php');
 
